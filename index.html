@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Musterkanzlei Demo | MS Forms & Bookings</title>
-  <meta name="description" content="Musterkanzlei-Demoseite zur Einbettung von Microsoft Forms und Microsoft Bookings." />
+  <title>Musterkanzlei Demo | Forms & Bookings Varianten</title>
+  <meta name="description" content="Musterkanzlei-Demoseite mit zwei Varianten für Microsoft Forms und Microsoft Bookings: Button-Lösung und IFrame-Einbindung." />
 
   <style>
     :root {
-      --bg: #f5f7fb;
+      --bg: #f4f7fb;
       --surface: #ffffff;
-      --surface-2: #eef3f8;
+      --surface-soft: #eef3f8;
       --text: #172033;
       --muted: #5f6b7a;
       --brand: #173b57;
@@ -18,8 +18,9 @@
       --accent: #d9a441;
       --border: #dce4ee;
       --shadow: 0 18px 45px rgba(23, 32, 51, .10);
-      --radius: 22px;
-      --max: 1280px;
+      --radius: 24px;
+      --max: 1180px;
+      --max-wide: 1680px;
     }
 
     * {
@@ -35,7 +36,7 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(47,111,145,.16), transparent 34rem),
+        radial-gradient(circle at top left, rgba(47,111,145,.18), transparent 34rem),
         linear-gradient(180deg, #f8fbff 0%, var(--bg) 45%, #eef3f8 100%);
       line-height: 1.6;
     }
@@ -61,12 +62,17 @@
       margin: 0 auto;
     }
 
+    .container-wide {
+      width: min(var(--max-wide), calc(100% - 1.5rem));
+      margin: 0 auto;
+    }
+
     header {
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(16px);
-      background: rgba(248, 251, 255, .86);
+      background: rgba(248, 251, 255, .9);
       border-bottom: 1px solid rgba(220, 228, 238, .86);
     }
 
@@ -131,8 +137,12 @@
     nav a:hover,
     nav a:focus {
       color: var(--brand);
-      background: var(--surface-2);
+      background: var(--surface-soft);
       outline: none;
+    }
+
+    section {
+      padding: 4.3rem 0;
     }
 
     .hero {
@@ -193,6 +203,10 @@
       margin-bottom: .45rem;
     }
 
+    p {
+      margin-top: 0;
+    }
+
     .lead {
       font-size: clamp(1.05rem, 2vw, 1.22rem);
       color: var(--muted);
@@ -210,11 +224,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: .78rem 1.1rem;
+      min-height: 50px;
+      padding: .82rem 1.18rem;
       border-radius: 999px;
       font-weight: 850;
       border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
     }
 
     .btn-primary {
@@ -227,6 +247,12 @@
       background: #fff;
       color: var(--brand);
       border-color: var(--border);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #231a08;
+      box-shadow: 0 16px 34px rgba(217, 164, 65, .28);
     }
 
     .hero-card {
@@ -287,10 +313,6 @@
       color: rgba(255,255,255,.78);
     }
 
-    section {
-      padding: 4.2rem 0;
-    }
-
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -300,9 +322,21 @@
     }
 
     .section-head p {
-      max-width: 68ch;
+      max-width: 72ch;
       color: var(--muted);
       margin: 0;
+    }
+
+    .watermark {
+      display: inline-flex;
+      border: 1px solid rgba(217,164,65,.55);
+      background: rgba(217,164,65,.13);
+      color: #664c16;
+      border-radius: 999px;
+      padding: .45rem .7rem;
+      font-weight: 850;
+      font-size: .82rem;
+      white-space: nowrap;
     }
 
     .notice {
@@ -322,7 +356,7 @@
     }
 
     .card {
-      background: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.84);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.25rem;
@@ -334,68 +368,217 @@
       color: var(--muted);
     }
 
-    .embed-shell {
+    .variant-label {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .45rem .72rem;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 900;
+      font-size: .82rem;
+      margin-bottom: 1rem;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    .portal-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86)),
+        radial-gradient(circle at top right, rgba(47,111,145,.18), transparent 22rem);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: clamp(1.25rem, 3vw, 2rem);
+      min-height: 420px;
+      display: grid;
+      align-content: space-between;
+      gap: 2rem;
+    }
+
+    .portal-card::after {
+      content: "";
+      position: absolute;
+      width: 17rem;
+      height: 17rem;
+      right: -7rem;
+      bottom: -7rem;
+      border-radius: 999px;
+      background: rgba(47,111,145,.10);
+      z-index: -1;
+    }
+
+    .portal-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      color: var(--brand);
+      background: rgba(47,111,145,.10);
+      border: 1px solid rgba(47,111,145,.18);
+      padding: .45rem .7rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 850;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+
+    .portal-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      font-size: 1.1rem;
+      box-shadow: 0 14px 28px rgba(23,59,87,.24);
+      margin-bottom: 1.15rem;
+    }
+
+    .portal-card h3 {
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      max-width: 14ch;
+    }
+
+    .portal-card p {
+      color: var(--muted);
+      font-size: 1.03rem;
+      max-width: 58ch;
+      margin: 1rem 0 0;
+    }
+
+    .portal-steps {
+      display: grid;
+      gap: .65rem;
+      margin: 1.4rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .portal-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: .65rem;
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .portal-steps li::before {
+      content: "";
+      width: .52rem;
+      height: .52rem;
+      border-radius: 99px;
+      background: var(--accent);
+      flex: 0 0 auto;
+      margin-top: .55rem;
+    }
+
+    .portal-actions {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .portal-note {
+      color: var(--muted);
+      font-size: .9rem;
+      margin: .8rem 0 0;
+    }
+
+    .embed-section {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.2)),
+        radial-gradient(circle at top right, rgba(47,111,145,.12), transparent 28rem);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .embed-block {
+      margin-top: 2rem;
       background: #fff;
       border: 1px solid var(--border);
-      border-radius: 26px;
+      border-radius: 28px;
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .embed-topbar {
+    .embed-block + .embed-block {
+      margin-top: 3rem;
+    }
+
+    .embed-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 1rem;
-      padding: 1rem 1.1rem;
+      padding: 1rem 1.25rem;
       background: linear-gradient(180deg, #fff, #f4f8fb);
       border-bottom: 1px solid var(--border);
     }
 
-    .embed-label {
+    .embed-title {
       display: flex;
       align-items: center;
-      gap: .55rem;
-      font-weight: 900;
+      gap: .7rem;
+      font-weight: 950;
       color: var(--brand);
     }
 
-    .dots {
-      display: flex;
-      gap: .32rem;
+    .embed-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: .38rem .65rem;
+      border-radius: 999px;
+      background: rgba(47,111,145,.10);
+      color: var(--brand);
+      font-weight: 850;
+      font-size: .8rem;
+      white-space: nowrap;
     }
 
-    .dot {
-      width: .66rem;
-      height: .66rem;
-      border-radius: 99px;
-      background: #c8d3df;
-    }
-
-    .embed-frame-wrap {
+    .embed-frame {
       width: 100%;
       background: #fff;
-      overflow: visible;
+      overflow: hidden;
     }
 
-    .embed-frame-wrap.forms {
-      height: 1500px;
+    .embed-frame.forms {
+      height: 1180px;
     }
 
-    .embed-frame-wrap.bookings {
-      height: 1250px;
+    .embed-frame.bookings {
+      height: 1120px;
     }
 
-    .embed-frame-wrap iframe {
+    .embed-frame iframe {
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
       background: #fff;
-      overflow: hidden;
     }
 
-    .two-col {
+    .embed-hint {
+      padding: .9rem 1.25rem;
+      background: #fbfcfe;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .split {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
@@ -435,33 +618,10 @@
       align-items: center;
     }
 
-    .watermark {
-      display: inline-flex;
-      border: 1px solid rgba(217,164,65,.55);
-      background: rgba(217,164,65,.13);
-      color: #664c16;
-      border-radius: 999px;
-      padding: .45rem .7rem;
-      font-weight: 850;
-      font-size: .82rem;
-      white-space: nowrap;
-    }
-
-    code {
-      background: #eef3f8;
-      border: 1px solid var(--border);
-      padding: .1rem .32rem;
-      border-radius: .4rem;
-      font-size: .92em;
-    }
-
-    @media (max-width: 900px) {
-      .hero {
-        padding-top: 3rem;
-      }
-
+    @media (max-width: 980px) {
       .hero-grid,
-      .two-col {
+      .portal-grid,
+      .split {
         grid-template-columns: 1fr;
       }
 
@@ -469,20 +629,24 @@
         grid-template-columns: 1fr;
       }
 
-      .section-head {
-        display: block;
-      }
-
       nav ul {
         display: none;
       }
 
-      .embed-frame-wrap.forms {
-        height: 1650px;
+      .section-head {
+        display: block;
       }
 
-      .embed-frame-wrap.bookings {
-        height: 1450px;
+      .watermark {
+        margin-top: 1rem;
+      }
+
+      .embed-frame.forms {
+        height: 1280px;
+      }
+
+      .embed-frame.bookings {
+        height: 1220px;
       }
     }
 
@@ -491,25 +655,37 @@
         width: min(var(--max), calc(100% - 1rem));
       }
 
+      .container-wide {
+        width: min(var(--max-wide), calc(100% - .5rem));
+      }
+
+      .hero {
+        padding-top: 3.2rem;
+      }
+
       .hero-card-inner {
         min-height: 300px;
       }
 
-      .embed-topbar {
+      .btn {
+        width: 100%;
+      }
+
+      .embed-block {
+        border-radius: 18px;
+      }
+
+      .embed-header {
         align-items: flex-start;
         flex-direction: column;
       }
 
-      .embed-frame-wrap.forms {
-        height: 1750px;
+      .embed-frame.forms {
+        height: 1380px;
       }
 
-      .embed-frame-wrap.bookings {
-        height: 1550px;
-      }
-
-      .btn {
-        width: 100%;
+      .embed-frame.bookings {
+        height: 1320px;
       }
     }
   </style>
@@ -533,8 +709,8 @@
       <nav aria-label="Hauptnavigation">
         <ul>
           <li><a href="#leistungen">Leistungen</a></li>
-          <li><a href="#formular">Mandantenformular</a></li>
-          <li><a href="#termin">Termin buchen</a></li>
+          <li><a href="#variante-button">Variante A</a></li>
+          <li><a href="#variante-iframe">Variante B</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
@@ -547,19 +723,20 @@
       <div class="container hero-grid">
         <div>
           <div class="eyebrow">Digitale Musterkanzlei für Demo-Zwecke</div>
-          <h1>Modernes Kanzleiportal mit Formular und Terminbuchung.</h1>
+          <h1>Zwei saubere Varianten für Formular und Terminbuchung.</h1>
+
           <p class="lead">
-            Diese Einzelseite zeigt, wie Microsoft Forms und Microsoft Bookings sauber in eine Kanzlei-Webseite eingebettet werden können.
-            Alle Inhalte sind fiktiv und dienen nur der Präsentation.
+            Diese Musterseite zeigt zwei Wege: eine Button-Lösung und eine IFrame-Lösung.
+            Die Button-Lösung ist technisch stabiler. Die IFrame-Lösung bleibt auf der Seite, kann aber durch Microsoft-Layouts begrenzt sein.
           </p>
 
           <div class="actions">
-            <a class="btn btn-primary" href="#formular">Formular ansehen</a>
-            <a class="btn btn-secondary" href="#termin">Termin buchen</a>
+            <a class="btn btn-primary" href="#variante-button">Variante A ansehen</a>
+            <a class="btn btn-secondary" href="#variante-iframe">Variante B ansehen</a>
           </div>
 
           <div class="notice">
-            Demo-Hinweis: Namen, Zahlen, Leistungen und Kontaktdaten sind frei erfunden. Diese Webseite stellt keine echte Kanzlei dar.
+            Hinweis: Diese Webseite ist eine Musterkanzlei. Alle Kanzleidaten, Personen und Leistungsangaben sind fiktiv.
           </div>
         </div>
 
@@ -569,21 +746,23 @@
               <p style="margin:0;color:rgba(255,255,255,.74);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;">
                 Musterprofil
               </p>
-              <h2 style="color:#fff;margin-top:.45rem;">Digital. Strukturiert. Mandantenorientiert.</h2>
+              <h2 style="color:#fff;margin-top:.45rem;">
+                Digital. Strukturiert. Präsentierbar.
+              </h2>
             </div>
 
             <div class="stats">
               <div class="stat">
-                <span>Online-Anfragen</span>
-                <strong>24/7</strong>
+                <span>Variante A</span>
+                <strong>Button</strong>
               </div>
               <div class="stat">
-                <span>Terminbuchung</span>
-                <strong>direkt</strong>
+                <span>Variante B</span>
+                <strong>IFrame</strong>
               </div>
               <div class="stat">
-                <span>Erstkontakt</span>
-                <strong>digital</strong>
+                <span>Demo</span>
+                <strong>1 Datei</strong>
               </div>
             </div>
           </div>
@@ -597,7 +776,7 @@
           <div>
             <h2>Leistungen der Musterkanzlei</h2>
             <p>
-              Die Inhalte sind bewusst generisch gehalten. Ziel ist die Darstellung einer glaubwürdigen Kanzleiumgebung für eingebettete Microsoft-Dienste.
+              Die Inhalte sind bewusst generisch gehalten. Ziel ist eine glaubwürdige Kanzleioberfläche für die Präsentation von Microsoft Forms und Bookings.
             </p>
           </div>
           <span class="watermark">Musterinhalt</span>
@@ -606,7 +785,7 @@
         <div class="cards">
           <article class="card">
             <h3>Finanzbuchhaltung</h3>
-            <p>Digitale Belegprozesse, Auswertungen und laufende Buchführung für kleine und mittelständische Unternehmen.</p>
+            <p>Digitale Belegprozesse, laufende Buchführung und Auswertungen für kleine und mittelständische Unternehmen.</p>
           </article>
 
           <article class="card">
@@ -622,77 +801,147 @@
       </div>
     </section>
 
-    <section id="formular">
+    <section id="variante-button">
       <div class="container">
         <div class="section-head">
           <div>
-            <h2>Mandantenformular</h2>
+            <span class="variant-label">Variante A · Button-Lösung</span>
+            <h2>Button-Lösung für Microsoft Forms und Bookings</h2>
             <p>
-              Das Microsoft Forms Formular ist großflächig eingebettet. Die Höhe ist so gewählt, dass der Inhalt möglichst ohne Scrollbalken im IFrame sichtbar bleibt.
+              Diese Variante ist technisch am saubersten, weil Microsoft Forms und Microsoft Bookings vollständig in ihrer eigenen Oberfläche laufen.
+              Der Nachteil: Der Nutzer verlässt für den Vorgang die Kanzleiseite.
             </p>
           </div>
-          <span class="watermark">MS Forms Embed</span>
+          <span class="watermark">Stabilste Variante</span>
         </div>
 
-        <div class="embed-shell">
-          <div class="embed-topbar">
-            <div class="embed-label">
-              <span class="dots">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </span>
-              Mandantenaufnahme
-            </div>
-            <strong>Clean eingebettet</strong>
-          </div>
+        <div class="portal-grid">
+          <article class="portal-card">
+            <div>
+              <div class="portal-kicker">Microsoft Forms</div>
+              <div class="portal-icon">F</div>
+              <h3>Mandantenformular öffnen</h3>
+              <p>
+                Das Formular wird per Button geöffnet. So gibt es keine abgeschnittenen Inhalte, keine IFrame-Höhenprobleme und keine künstlichen Scrollbereiche.
+              </p>
 
-          <div class="embed-frame-wrap forms">
-            <iframe
-              src="https://forms.office.com/Pages/ResponsePage.aspx?id=hrLSXMW5qEKIjL9k3-7A5IiyF-F1V31Ah-3nKnELtGZUMkFPNlEwOFVTVENOTzlWTEJJNVlUNlpPTi4u&embed=true"
-              title="Microsoft Forms Mandantenaufnahme"
-              scrolling="no"
-              loading="lazy"
-              allowfullscreen>
-            </iframe>
-          </div>
+              <ul class="portal-steps">
+                <li>Mandant klickt auf den Button</li>
+                <li>Microsoft Forms öffnet vollständig</li>
+                <li>Formular kann sauber ausgefüllt werden</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="portal-actions">
+                <a
+                  class="btn btn-primary"
+                  href="https://forms.office.com/Pages/ResponsePage.aspx?id=hrLSXMW5qEKIjL9k3-7A5IiyF-F1V31Ah-3nKnELtGZUMkFPNlEwOFVTVENOTzlWTEJJNVlUNlpPTi4u&embed=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Formular öffnen
+                </a>
+              </div>
+
+              <p class="portal-note">
+                Technisch sauber, aber nicht innerhalb der Kanzleiseite.
+              </p>
+            </div>
+          </article>
+
+          <article class="portal-card">
+            <div>
+              <div class="portal-kicker">Microsoft Bookings</div>
+              <div class="portal-icon">B</div>
+              <h3>Terminbuchung öffnen</h3>
+              <p>
+                Der Buchungskalender wird über einen Button geöffnet. Das ist für Bookings oft besser, weil Microsoft die Bedienoberfläche selbst kontrolliert.
+              </p>
+
+              <ul class="portal-steps">
+                <li>Mandant klickt auf Terminbuchung</li>
+                <li>Bookings öffnet vollständig</li>
+                <li>Termin kann ohne Einbettungsprobleme gebucht werden</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="portal-actions">
+                <a
+                  class="btn btn-accent"
+                  href="https://outlook.office.com/book/PersnlicheBuchungenmitToniMrtig@haus-der-edv.de/s/7sj4gTW7-kWyShzX53zIVg2?ismsaljsauthenabled"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Termin buchen
+                </a>
+              </div>
+
+              <p class="portal-note">
+                Technisch sauber, aber nicht innerhalb der Kanzleiseite.
+              </p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="termin">
-      <div class="container">
+    <section id="variante-iframe" class="embed-section">
+      <div class="container-wide">
         <div class="section-head">
           <div>
-            <h2>Termin buchen</h2>
+            <span class="variant-label">Variante B · IFrame-Einbindung</span>
+            <h2>IFrame-Einbindung direkt auf der Kanzleiseite</h2>
             <p>
-              Der Microsoft Bookings Kalender ist großflächig eingebettet. Die Höhe ist bewusst großzügig gesetzt, um innere Scrollbalken zu vermeiden.
+              Diese Variante bleibt auf der Seite. Die Einbettung ist bewusst sehr breit gehalten, damit seitliche Leerflächen reduziert werden.
+              Die tatsächlichen Innenabstände von Microsoft Forms und Bookings kann diese Seite aber nicht vollständig kontrollieren.
             </p>
           </div>
-          <span class="watermark">MS Bookings Embed</span>
+          <span class="watermark">Bleibt auf der Seite</span>
         </div>
 
-        <div class="embed-shell">
-          <div class="embed-topbar">
-            <div class="embed-label">
-              <span class="dots">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </span>
-              Online-Terminvereinbarung
+        <div class="embed-block">
+          <div class="embed-header">
+            <div class="embed-title">
+              Microsoft Forms · Mandantenformular
             </div>
-            <strong>Kalenderbereich</strong>
+            <span class="embed-badge">Breite IFrame-Fläche</span>
           </div>
 
-          <div class="embed-frame-wrap bookings">
+          <div class="embed-frame forms">
             <iframe
-              src="https://outlook.office.com/book/PersnlicheBuchungenmitToniMrtig@haus-der-edv.de/s/7sj4gTW7-kWyShzX53zIVg2?ismsaljsauthenabled"
-              title="Microsoft Bookings Kalender"
-              scrolling="no"
+              src="https://forms.office.com/Pages/ResponsePage.aspx?id=hrLSXMW5qEKIjL9k3-7A5IiyF-F1V31Ah-3nKnELtGZUMkFPNlEwOFVTVENOTzlWTEJJNVlUNlpPTi4u&embed=true"
+              title="Microsoft Forms Mandantenformular"
               loading="lazy"
               allowfullscreen>
             </iframe>
+          </div>
+
+          <div class="embed-hint">
+            Hinweis: Seitliche Freiflächen innerhalb des Formulars entstehen teilweise durch Microsoft Forms selbst. Die Außenfläche dieser Seite ist bereits maximal breit gesetzt.
+          </div>
+        </div>
+
+        <div class="embed-block">
+          <div class="embed-header">
+            <div class="embed-title">
+              Microsoft Bookings · Terminbuchung
+            </div>
+            <span class="embed-badge">Breite IFrame-Fläche</span>
+          </div>
+
+          <div class="embed-frame bookings">
+            <iframe
+              src="https://outlook.office.com/book/PersnlicheBuchungenmitToniMrtig@haus-der-edv.de/s/7sj4gTW7-kWyShzX53zIVg2?ismsaljsauthenabled"
+              title="Microsoft Bookings Terminbuchung"
+              loading="lazy"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="embed-hint">
+            Hinweis: Bookings wird direkt auf dieser Seite angezeigt. Die Microsoft-Oberfläche kann eigene Abstände und Scrollverhalten erzwingen.
           </div>
         </div>
       </div>
@@ -710,7 +959,7 @@
           <span class="watermark">Fiktive Personen</span>
         </div>
 
-        <div class="two-col">
+        <div class="split">
           <article class="card profile">
             <div class="avatar">AS</div>
             <div>
@@ -732,14 +981,16 @@
 
     <section id="kontakt">
       <div class="container">
-        <div class="two-col">
+        <div class="split">
           <div>
             <h2>Kontakt</h2>
             <p class="lead">
               Musterkanzlei Schneider & Partner<br>
               Musterstraße 12 · 12345 Musterstadt<br>
-              Telefon: 01234 567890 · E-Mail: kontakt@musterkanzlei-demo.de
+              Telefon: 01234 567890<br>
+              E-Mail: kontakt@musterkanzlei-demo.de
             </p>
+
             <div class="notice">
               Keine echte Kontaktaufnahme. Diese Daten sind Platzhalter.
             </div>
@@ -748,12 +999,10 @@
           <div class="card">
             <h3>Technischer Hinweis</h3>
             <p>
-              Die IFrame-Höhen werden über CSS gesetzt:
-              <code>.embed-frame-wrap.forms</code> und <code>.embed-frame-wrap.bookings</code>.
+              Es gibt keine perfekte Lösung, die gleichzeitig vollständig innerhalb der Kanzleiseite bleibt und garantiert nie Scrollverhalten im Microsoft-Inhalt erzeugt.
             </p>
             <p>
-              Komplett ohne inneres Scrollen geht nur, wenn der eingebettete Microsoft-Inhalt weniger hoch ist als der IFrame.
-              Microsoft gibt die tatsächliche Inhaltshöhe nicht automatisch an die Elternseite weiter.
+              Deshalb sind beide Varianten enthalten: Button-Lösung für technische Stabilität und IFrame-Lösung für Darstellung direkt auf der Seite.
             </p>
           </div>
         </div>
@@ -773,19 +1022,19 @@
         </div>
 
         <div class="cards">
-          <a class="card" href="#formular">
-            <h3>Mandantenaufnahme</h3>
-            <p>Direkt zum Forms-Bereich.</p>
+          <a class="card" href="#variante-button">
+            <h3>Variante A</h3>
+            <p>Button-Lösung für Formular und Terminbuchung.</p>
           </a>
 
-          <a class="card" href="#termin">
-            <h3>Terminbuchung</h3>
-            <p>Direkt zum Bookings-Bereich.</p>
+          <a class="card" href="#variante-iframe">
+            <h3>Variante B</h3>
+            <p>IFrame-Einbindung direkt auf der Seite.</p>
           </a>
 
           <a class="card" href="#leistungen">
-            <h3>Leistungsübersicht</h3>
-            <p>Direkt zu den Musterleistungen.</p>
+            <h3>Leistungen</h3>
+            <p>Direkt zur Muster-Leistungsübersicht.</p>
           </a>
         </div>
       </div>
