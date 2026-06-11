@@ -555,11 +555,11 @@
     }
 
     .embed-frame.forms {
-      height: 1180px;
+      height: 2600px;
     }
 
     .embed-frame.bookings {
-      height: 1120px;
+      height: 2300px;
     }
 
     .embed-frame iframe {
@@ -568,6 +568,7 @@
       border: 0;
       display: block;
       background: #fff;
+      overflow: hidden;
     }
 
     .embed-hint {
@@ -642,11 +643,11 @@
       }
 
       .embed-frame.forms {
-        height: 1280px;
+        height: 2850px;
       }
 
       .embed-frame.bookings {
-        height: 1220px;
+        height: 2550px;
       }
     }
 
@@ -681,11 +682,11 @@
       }
 
       .embed-frame.forms {
-        height: 1380px;
+        height: 3100px;
       }
 
       .embed-frame.bookings {
-        height: 1320px;
+        height: 2850px;
       }
     }
   </style>
@@ -723,11 +724,11 @@
       <div class="container hero-grid">
         <div>
           <div class="eyebrow">Digitale Musterkanzlei für Demo-Zwecke</div>
-          <h1>Zwei saubere Varianten für Formular und Terminbuchung.</h1>
+          <h1>Zwei Varianten für Formular und Terminbuchung.</h1>
 
           <p class="lead">
             Diese Musterseite zeigt zwei Wege: eine Button-Lösung und eine IFrame-Lösung.
-            Die Button-Lösung ist technisch stabiler. Die IFrame-Lösung bleibt auf der Seite, kann aber durch Microsoft-Layouts begrenzt sein.
+            Die IFrame-Lösung bleibt auf der Seite und ist jetzt deutlich höher gesetzt, damit Forms und Bookings vollständig sichtbar werden.
           </p>
 
           <div class="actions">
@@ -894,8 +895,7 @@
             <span class="variant-label">Variante B · IFrame-Einbindung</span>
             <h2>IFrame-Einbindung direkt auf der Kanzleiseite</h2>
             <p>
-              Diese Variante bleibt auf der Seite. Die Einbettung ist bewusst sehr breit gehalten, damit seitliche Leerflächen reduziert werden.
-              Die tatsächlichen Innenabstände von Microsoft Forms und Bookings kann diese Seite aber nicht vollständig kontrollieren.
+              Diese Variante bleibt auf der Seite. Die IFrames sind jetzt deutlich höher, damit die eingebetteten Inhalte vollständig sichtbar sind und kein inneres Scrollen nötig wird.
             </p>
           </div>
           <span class="watermark">Bleibt auf der Seite</span>
@@ -906,7 +906,7 @@
             <div class="embed-title">
               Microsoft Forms · Mandantenformular
             </div>
-            <span class="embed-badge">Breite IFrame-Fläche</span>
+            <span class="embed-badge">Hoher IFrame · 2600px</span>
           </div>
 
           <div class="embed-frame forms">
@@ -914,12 +914,13 @@
               src="https://forms.office.com/Pages/ResponsePage.aspx?id=hrLSXMW5qEKIjL9k3-7A5IiyF-F1V31Ah-3nKnELtGZUMkFPNlEwOFVTVENOTzlWTEJJNVlUNlpPTi4u&embed=true"
               title="Microsoft Forms Mandantenformular"
               loading="lazy"
+              scrolling="no"
               allowfullscreen>
             </iframe>
           </div>
 
           <div class="embed-hint">
-            Hinweis: Seitliche Freiflächen innerhalb des Formulars entstehen teilweise durch Microsoft Forms selbst. Die Außenfläche dieser Seite ist bereits maximal breit gesetzt.
+            Forms-IFrame ist auf 2600px gesetzt. Auf Tablet und Smartphone wird die Höhe zusätzlich erhöht.
           </div>
         </div>
 
@@ -928,7 +929,7 @@
             <div class="embed-title">
               Microsoft Bookings · Terminbuchung
             </div>
-            <span class="embed-badge">Breite IFrame-Fläche</span>
+            <span class="embed-badge">Hoher IFrame · 2300px</span>
           </div>
 
           <div class="embed-frame bookings">
@@ -936,12 +937,13 @@
               src="https://outlook.office.com/book/PersnlicheBuchungenmitToniMrtig@haus-der-edv.de/s/7sj4gTW7-kWyShzX53zIVg2?ismsaljsauthenabled"
               title="Microsoft Bookings Terminbuchung"
               loading="lazy"
+              scrolling="no"
               allowfullscreen>
             </iframe>
           </div>
 
           <div class="embed-hint">
-            Hinweis: Bookings wird direkt auf dieser Seite angezeigt. Die Microsoft-Oberfläche kann eigene Abstände und Scrollverhalten erzwingen.
+            Bookings-IFrame ist auf 2300px gesetzt. Auf Tablet und Smartphone wird die Höhe zusätzlich erhöht.
           </div>
         </div>
       </div>
@@ -999,10 +1001,13 @@
           <div class="card">
             <h3>Technischer Hinweis</h3>
             <p>
-              Es gibt keine perfekte Lösung, die gleichzeitig vollständig innerhalb der Kanzleiseite bleibt und garantiert nie Scrollverhalten im Microsoft-Inhalt erzeugt.
+              Die IFrame-Höhen sind bewusst sehr hoch gesetzt:
             </p>
             <p>
-              Deshalb sind beide Varianten enthalten: Button-Lösung für technische Stabilität und IFrame-Lösung für Darstellung direkt auf der Seite.
+              Forms: 2600px Desktop, 2850px Tablet, 3100px Mobile.
+            </p>
+            <p>
+              Bookings: 2300px Desktop, 2550px Tablet, 2850px Mobile.
             </p>
           </div>
         </div>
