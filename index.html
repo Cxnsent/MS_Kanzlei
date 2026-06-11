@@ -254,6 +254,7 @@
     .stat span { color: rgba(255,255,255,.78); }
 
     section { padding: 4.2rem 0; }
+
     .section-head {
       display: flex;
       justify-content: space-between;
@@ -261,6 +262,7 @@
       gap: 2rem;
       margin-bottom: 1.5rem;
     }
+
     .section-head p { max-width: 68ch; color: var(--muted); margin: 0; }
 
     .notice {
@@ -319,7 +321,13 @@
       display: flex;
       gap: .32rem;
     }
-    .dot { width: .66rem; height: .66rem; border-radius: 99px; background: #c8d3df; }
+
+    .dot {
+      width: .66rem;
+      height: .66rem;
+      border-radius: 99px;
+      background: #c8d3df;
+    }
 
     .embed-frame-wrap {
       position: relative;
@@ -328,8 +336,8 @@
       background: #f6f8fb;
     }
 
-    .embed-frame-wrap.forms { min-height: 820px; }
-    .embed-frame-wrap.bookings { min-height: 760px; }
+    .embed-frame-wrap.forms { min-height: 860px; }
+    .embed-frame-wrap.bookings { min-height: 780px; }
 
     .embed-frame-wrap iframe {
       position: absolute;
@@ -339,35 +347,6 @@
       border: 0;
       display: block;
       background: #fff;
-    }
-
-    .iframe-placeholder {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 2rem;
-      text-align: center;
-      color: var(--muted);
-      background:
-        linear-gradient(135deg, rgba(47,111,145,.08), rgba(217,164,65,.10)),
-        #f7f9fc;
-    }
-
-    .iframe-placeholder code {
-      display: block;
-      white-space: pre-wrap;
-      text-align: left;
-      max-width: 780px;
-      width: 100%;
-      margin-top: 1rem;
-      background: #132334;
-      color: #edf6ff;
-      border-radius: 16px;
-      padding: 1rem;
-      font-size: .88rem;
-      line-height: 1.45;
-      overflow-x: auto;
     }
 
     .two-col {
@@ -394,16 +373,6 @@
       color: var(--brand);
       flex: 0 0 auto;
     }
-
-    .page-panel {
-      display: none;
-      animation: fade .18s ease-out;
-    }
-    .page-panel:target { display: block; }
-    .page-panel.default { display: block; }
-    body:has(.page-panel:target) .page-panel.default { display: none; }
-
-    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     footer {
       padding: 3rem 0;
@@ -437,18 +406,25 @@
       .cards { grid-template-columns: 1fr; }
       .section-head { display: block; }
       nav ul { display: none; }
+
       .embed-frame-wrap,
       .embed-frame-wrap.forms,
-      .embed-frame-wrap.bookings { min-height: 680px; }
+      .embed-frame-wrap.bookings {
+        min-height: 680px;
+      }
     }
 
     @media (max-width: 560px) {
       .container { width: min(var(--max), calc(100% - 1rem)); }
       .hero-card-inner { min-height: 300px; }
       .embed-topbar { align-items: flex-start; flex-direction: column; }
+
       .embed-frame-wrap,
       .embed-frame-wrap.forms,
-      .embed-frame-wrap.bookings { min-height: 620px; }
+      .embed-frame-wrap.bookings {
+        min-height: 620px;
+      }
+
       .btn { width: 100%; }
     }
   </style>
@@ -462,6 +438,7 @@
         <span class="brand-mark">MK</span>
         <span>Musterkanzlei Schneider & Partner<small>Steuerberatung · Demo</small></span>
       </a>
+
       <nav aria-label="Hauptnavigation">
         <ul>
           <li><a href="#leistungen">Leistungen</a></li>
@@ -480,20 +457,30 @@
         <div>
           <div class="eyebrow">Digitale Musterkanzlei für Demo-Zwecke</div>
           <h1>Modernes Kanzleiportal mit Formular und Terminbuchung.</h1>
-          <p class="lead">Diese Einzelseite zeigt, wie Microsoft Forms und Microsoft Bookings sauber in eine Kanzlei-Webseite eingebettet werden können. Alle Inhalte sind fiktiv und dienen nur der Präsentation.</p>
+          <p class="lead">
+            Diese Einzelseite zeigt, wie Microsoft Forms und Microsoft Bookings sauber in eine Kanzlei-Webseite eingebettet werden können.
+            Alle Inhalte sind fiktiv und dienen nur der Präsentation.
+          </p>
+
           <div class="actions">
             <a class="btn btn-primary" href="#formular">Formular ansehen</a>
             <a class="btn btn-secondary" href="#termin">Termin buchen</a>
           </div>
-          <div class="notice">Demo-Hinweis: Namen, Zahlen, Leistungen und Kontaktdaten sind frei erfunden. IFrames müssen durch deine echten Microsoft-Einbettungscodes ersetzt werden.</div>
+
+          <div class="notice">
+            Demo-Hinweis: Namen, Zahlen, Leistungen und Kontaktdaten sind frei erfunden. Diese Webseite stellt keine echte Kanzlei dar.
+          </div>
         </div>
 
         <aside class="hero-card" aria-label="Kanzlei-Kurzprofil">
           <div class="hero-card-inner">
             <div>
-              <p style="margin:0;color:rgba(255,255,255,.74);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;">Musterprofil</p>
+              <p style="margin:0;color:rgba(255,255,255,.74);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;">
+                Musterprofil
+              </p>
               <h2 style="color:#fff;margin-top:.45rem;">Digital. Strukturiert. Mandantenorientiert.</h2>
             </div>
+
             <div class="stats">
               <div class="stat"><span>Online-Anfragen</span><strong>24/7</strong></div>
               <div class="stat"><span>Terminbuchung</span><strong>direkt</strong></div>
@@ -509,7 +496,9 @@
         <div class="section-head">
           <div>
             <h2>Leistungen der Musterkanzlei</h2>
-            <p>Die Inhalte sind bewusst generisch gehalten. Ziel ist die Darstellung einer glaubwürdigen Kanzleiumgebung für eingebettete Microsoft-Dienste.</p>
+            <p>
+              Die Inhalte sind bewusst generisch gehalten. Ziel ist die Darstellung einer glaubwürdigen Kanzleiumgebung für eingebettete Microsoft-Dienste.
+            </p>
           </div>
           <span class="watermark">Musterinhalt</span>
         </div>
@@ -519,10 +508,12 @@
             <h3>Finanzbuchhaltung</h3>
             <p>Digitale Belegprozesse, Auswertungen und laufende Buchführung für kleine und mittelständische Unternehmen.</p>
           </article>
+
           <article class="card">
             <h3>Lohnabrechnung</h3>
             <p>Strukturierte Abrechnung, Stammdatenpflege und digitale Kommunikation mit Mandanten.</p>
           </article>
+
           <article class="card">
             <h3>Steuerberatung</h3>
             <p>Jahresabschlüsse, Steuererklärungen und betriebswirtschaftliche Beratung als Musterdarstellung.</p>
@@ -536,33 +527,36 @@
         <div class="section-head">
           <div>
             <h2>Mandantenformular</h2>
-            <p>Hier wird dein Microsoft Forms Formular eingebettet. Der Container ist responsiv, breit genug für Desktop und hoch genug für längere Formulare.</p>
+            <p>
+              Hier ist das Microsoft Forms Formular eingebettet. Der Container ist responsiv, breit genug für Desktop und hoch genug für längere Formulare.
+            </p>
           </div>
           <span class="watermark">MS Forms Embed</span>
         </div>
 
         <div class="embed-shell">
           <div class="embed-topbar">
-            <div class="embed-label"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> Mandantenaufnahme</div>
+            <div class="embed-label">
+              <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              Mandantenaufnahme
+            </div>
             <strong>Responsive IFrame-Fläche</strong>
           </div>
-          <div class="embed-frame-wrap forms">
-            <!--
-              MS FORMS IFRAME HIER EINFÜGEN
-              Variante A: Ersetze den gesamten Placeholder-Block unten durch deinen Microsoft-Forms-IFrame.
-              Variante B: Füge deinen IFrame direkt hier ein und entferne den Placeholder.
 
-              Empfohlene Attribute:
+          <div class="embed-frame-wrap forms">
+            <iframe
+              src="https://forms.office.com/Pages/ResponsePage.aspx?id=hrLSXMW5qEKIjL9k3-7A5IiyF-F1V31Ah-3nKnELtGZUMkFPNlEwOFVTVENOTzlWTEJJNVlUNlpPTi4u&embed=true"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              marginwidth="0"
+              marginheight="0"
               style="border:0; width:100%; height:100%;"
               loading="lazy"
-            -->
-            <div class="iframe-placeholder">
-              <div>
-                <h3>Platzhalter für Microsoft Forms</h3>
-                <p>Ersetze diesen Block durch deinen echten Forms-IFrame.</p>
-                <code>&lt;iframe src="https://forms.office.com/Pages/ResponsePage.aspx?id=hrLSXMW5qEKIjL9k3-7A5IiyF-F1V31Ah-3nKnELtGZUMkFPNlEwOFVTVENOTzlWTEJJNVlUNlpPTi4u&embed=true" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0" style="border:0; width:100%; height:100%;" loading="lazy"&gt;&lt;/iframe&gt;</code>
-              </div>
-            </div>
+              allowfullscreen
+              webkitallowfullscreen
+              mozallowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
@@ -573,32 +567,32 @@
         <div class="section-head">
           <div>
             <h2>Termin buchen</h2>
-            <p>Hier wird dein Microsoft Bookings Kalender eingebettet. Die Darstellung ist für Desktop und Smartphone skaliert.</p>
+            <p>
+              Hier ist der Microsoft Bookings Kalender eingebettet. Die Darstellung ist für Desktop und Smartphone skaliert.
+            </p>
           </div>
           <span class="watermark">MS Bookings Embed</span>
         </div>
 
         <div class="embed-shell">
           <div class="embed-topbar">
-            <div class="embed-label"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span> Online-Terminvereinbarung</div>
+            <div class="embed-label">
+              <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              Online-Terminvereinbarung
+            </div>
             <strong>Kalenderbereich</strong>
           </div>
-          <div class="embed-frame-wrap bookings">
-            <!--
-              MS BOOKINGS IFRAME HIER EINFÜGEN
-              Ersetze den Placeholder-Block unten durch deinen Microsoft-Bookings-IFrame.
 
-              Empfohlene Attribute:
+          <div class="embed-frame-wrap bookings">
+            <iframe
+              src="https://outlook.office.com/book/PersnlicheBuchungenmitToniMrtig@haus-der-edv.de/s/7sj4gTW7-kWyShzX53zIVg2?ismsaljsauthenabled"
+              width="100%"
+              height="100%"
+              frameborder="0"
               style="border:0; width:100%; height:100%;"
               loading="lazy"
-            -->
-            <div class="iframe-placeholder">
-              <div>
-                <h3>Platzhalter für Microsoft Bookings</h3>
-                <p>Ersetze diesen Block durch deinen echten Bookings-IFrame.</p>
-                <code>&lt;iframe src="https://outlook.office.com/book/PersnlicheBuchungenmitToniMrtig@haus-der-edv.de/s/7sj4gTW7-kWyShzX53zIVg2?ismsaljsauthenabled" width="100%" height="100%" frameborder="0" style="border:0; width:100%; height:100%;" loading="lazy"&gt;&lt;/iframe&gt;</code>
-              </div>
-            </div>
+              allowfullscreen>
+            </iframe>
           </div>
         </div>
       </div>
@@ -609,7 +603,9 @@
         <div class="section-head">
           <div>
             <h2>Team</h2>
-            <p>Fiktive Ansprechpartner, damit die Seite wie eine echte Kanzleiseite wirkt, ohne den Mustercharakter zu verlieren.</p>
+            <p>
+              Fiktive Ansprechpartner, damit die Seite wie eine echte Kanzleiseite wirkt, ohne den Mustercharakter zu verlieren.
+            </p>
           </div>
           <span class="watermark">Fiktive Personen</span>
         </div>
@@ -622,6 +618,7 @@
               <p>Steuerberaterin · Musterprofil für Erstberatung und digitale Kanzleiprozesse.</p>
             </div>
           </article>
+
           <article class="card profile">
             <div class="avatar">MP</div>
             <div>
@@ -638,13 +635,23 @@
         <div class="two-col">
           <div>
             <h2>Kontakt</h2>
-            <p class="lead">Musterkanzlei Schneider & Partner<br>Musterstraße 12 · 12345 Musterstadt<br>Telefon: 01234 567890 · E-Mail: kontakt@musterkanzlei-demo.de</p>
+            <p class="lead">
+              Musterkanzlei Schneider & Partner<br>
+              Musterstraße 12 · 12345 Musterstadt<br>
+              Telefon: 01234 567890 · E-Mail: kontakt@musterkanzlei-demo.de
+            </p>
             <div class="notice">Keine echte Kontaktaufnahme. Diese Daten sind Platzhalter.</div>
           </div>
+
           <div class="card">
             <h3>Hinweis zur Einbindung</h3>
-            <p>Die Höhe der IFrame-Flächen wird über <code>min-height</code> gesteuert. Für sehr lange Forms-Formulare kannst du im CSS <code>.embed-frame-wrap.forms</code> erhöhen, zum Beispiel auf <code>1000px</code>.</p>
-            <p>Für Bookings gilt entsprechend <code>.embed-frame-wrap.bookings</code>.</p>
+            <p>
+              Die Höhe der IFrame-Flächen wird über <code>min-height</code> gesteuert.
+              Für sehr lange Forms-Formulare kannst du im CSS <code>.embed-frame-wrap.forms</code> erhöhen, zum Beispiel auf <code>1000px</code>.
+            </p>
+            <p>
+              Für Bookings gilt entsprechend <code>.embed-frame-wrap.bookings</code>.
+            </p>
           </div>
         </div>
       </div>
@@ -655,13 +662,28 @@
         <div class="section-head">
           <div>
             <h2>Unterseiten innerhalb einer Datei</h2>
-            <p>Da alles in einer HTML-Datei bleibt, werden Unterseiten per Sprungmarke simuliert. Das reicht für eine Demo und bleibt technisch simpel.</p>
+            <p>
+              Da alles in einer HTML-Datei bleibt, werden Unterseiten per Sprungmarke simuliert.
+              Das reicht für eine Demo und bleibt technisch simpel.
+            </p>
           </div>
         </div>
+
         <div class="cards">
-          <a class="card" href="#formular"><h3>Mandantenaufnahme</h3><p>Direkt zum Forms-Bereich.</p></a>
-          <a class="card" href="#termin"><h3>Terminbuchung</h3><p>Direkt zum Bookings-Bereich.</p></a>
-          <a class="card" href="#leistungen"><h3>Leistungsübersicht</h3><p>Direkt zu den Musterleistungen.</p></a>
+          <a class="card" href="#formular">
+            <h3>Mandantenaufnahme</h3>
+            <p>Direkt zum Forms-Bereich.</p>
+          </a>
+
+          <a class="card" href="#termin">
+            <h3>Terminbuchung</h3>
+            <p>Direkt zum Bookings-Bereich.</p>
+          </a>
+
+          <a class="card" href="#leistungen">
+            <h3>Leistungsübersicht</h3>
+            <p>Direkt zu den Musterleistungen.</p>
+          </a>
         </div>
       </div>
     </section>
